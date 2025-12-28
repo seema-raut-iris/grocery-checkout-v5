@@ -13,16 +13,16 @@ public class ItemResolver {
         for (ItemType it : ItemType.values()) {
             LOOKUP.put(standardize(it.name()), it);
         }
-        LOOKUP.put(standardize("banana"), ItemType.BANANA);
-        LOOKUP.put(standardize("bananas"), ItemType.BANANA);
-        LOOKUP.put(standardize("orange"), ItemType.ORANGE);
-        LOOKUP.put(standardize("oranges"), ItemType.ORANGE);
-        LOOKUP.put(standardize("apple"), ItemType.APPLE);
-        LOOKUP.put(standardize("apples"), ItemType.APPLE);
-        LOOKUP.put(standardize("lemon"), ItemType.LEMON);
-        LOOKUP.put(standardize("lemons"), ItemType.LEMON);
-        LOOKUP.put(standardize("peach"), ItemType.PEACH);
-        LOOKUP.put(standardize("peaches"), ItemType.PEACH);
+        LOOKUP.put(standardize("banana"), ItemType.BANANAS);
+        LOOKUP.put(standardize("bananas"), ItemType.BANANAS);
+        LOOKUP.put(standardize("orange"), ItemType.ORANGES);
+        LOOKUP.put(standardize("oranges"), ItemType.ORANGES);
+        LOOKUP.put(standardize("apple"), ItemType.APPLES);
+        LOOKUP.put(standardize("apples"), ItemType.APPLES);
+        LOOKUP.put(standardize("lemon"), ItemType.LEMONS);
+        LOOKUP.put(standardize("lemons"), ItemType.LEMONS);
+        LOOKUP.put(standardize("peach"), ItemType.PEACHES);
+        LOOKUP.put(standardize("peaches"), ItemType.PEACHES);
     }
 
     private static String standardize(String s) { return s.trim().toLowerCase(Locale.ROOT); }

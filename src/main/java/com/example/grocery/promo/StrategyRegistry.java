@@ -13,8 +13,8 @@ public class StrategyRegistry {
     private final Map<ItemType, List<DiscountStrategy>> byItem = new EnumMap<>(ItemType.class);
 
     public StrategyRegistry(List<DiscountStrategy> strategies) {
-        byItem.put(ItemType.BANANA, strategies.stream().filter(s -> s.name().contains("bananas")).toList());
-        byItem.put(ItemType.ORANGE, strategies.stream().filter(s -> s.name().contains("oranges")).toList());
+        byItem.put(ItemType.BANANAS, strategies.stream().filter(s -> s.name().contains("bananas")).toList());
+        byItem.put(ItemType.ORANGES, strategies.stream().filter(s -> s.name().contains("oranges")).toList());
     }
 
     public List<DiscountStrategy> strategiesFor(ItemType type) { return byItem.getOrDefault(type, List.of()); }

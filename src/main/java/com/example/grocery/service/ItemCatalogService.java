@@ -27,11 +27,11 @@ public class ItemCatalogService {
         return map;
     }
 
-    public List<ItemType> getAllTypes() {
+    /*public List<ItemType> getAllTypes() {
         return List.of(ItemType.values());
     }
 
     public List<BigDecimal> getAllPrices() {
         return getAllTypes().stream().map(priceProvider::priceOf).collect(Collectors.toList());
-    }
+    }*/
 }

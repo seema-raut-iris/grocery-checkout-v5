@@ -12,7 +12,7 @@ import static com.example.grocery.util.PriceMath.scale;
 public class Orange3For75Strategy implements DiscountStrategy {
     @Override
     public DiscountResult apply(ItemType type, int quantity, BigDecimal unitPrice) {
-        if (type != ItemType.ORANGE || quantity < 3) return new DiscountResult("", BigDecimal.ZERO);
+        if (type != ItemType.ORANGES || quantity < 3) return new DiscountResult("", BigDecimal.ZERO);
         int trios = quantity / 3;
 
         BigDecimal regularPerTrio = scale(unitPrice.multiply(new BigDecimal("3")));

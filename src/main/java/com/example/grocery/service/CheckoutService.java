@@ -6,6 +6,7 @@ import com.example.grocery.pricing.PriceProvider;
 import com.example.grocery.promo.DiscountResult;
 import com.example.grocery.promo.DiscountStrategy;
 import com.example.grocery.promo.StrategyRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -16,13 +17,10 @@ import static com.example.grocery.util.PriceMath.*;
 
 @Service
 public class CheckoutService {
-    private final PriceProvider priceProvider;
-    private final StrategyRegistry registry;
-
-    public CheckoutService(PriceProvider priceProvider, StrategyRegistry registry) {
-        this.priceProvider = priceProvider;
-        this.registry = registry;
-    }
+    @Autowired
+    private PriceProvider priceProvider;
+    @Autowired
+    private StrategyRegistry registry;
 
     public Receipt checkout(List<BasketItem> basket) {
         List<ReceiptLine> itemLines = new ArrayList<>();
@@ -36,7 +34,7 @@ public class CheckoutService {
             BigDecimal linePrice = multiply(unit, item.getQuantity());
 
             itemLines.add(ReceiptLine.builder()
-                    .itemName(item.getType().name().substring(0,1) + item.getType().name().substring(1).toLowerCase())
+                    .itemName(item.getType().name().toLowerCase())
                     .quantity(item.getQuantity())
                     .amount(linePrice)
                     .build());
