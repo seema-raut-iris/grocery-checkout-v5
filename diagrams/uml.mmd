@@ -1,0 +1,49 @@
+
+```mermaid
+classDiagram
+    class CheckoutService {
+        - PriceProvider priceProvider
+        - StrategyRegistry registry
+        + Receipt checkout(List~BasketItem~)
+    }
+    class PriceProvider { + Money priceOf(ItemType) }
+    class PriceCatalog
+    class StrategyRegistry { + List~DiscountStrategy~ strategiesFor(ItemType) }
+    class DiscountStrategy { + DiscountResult apply(ItemType,int,Money) + String name() }
+    class BananaBuy2Get1FreeStrategy
+    class Orange3For75Strategy
+    class Money
+    class BasketItem
+    class Receipt
+    class ReceiptLine
+    class DiscountLine
+
+    CheckoutService --> PriceProvider
+    PriceCatalog ..|> PriceProvider
+    CheckoutService --> StrategyRegistry
+    StrategyRegistry ..> DiscountStrategy
+    DiscountStrategy --> DiscountResult
+    CheckoutService --> Receipt
+    Receipt o--> ReceiptLine
+    Receipt o--> DiscountLine
+```
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant API as CheckoutController
+    participant Service as CheckoutService
+    participant Pricing as PriceProvider
+    participant Promo as StrategyRegistry
+
+    Client->>API: POST /api/v1/checkout
+    API->>Service: checkout(basket)
+    loop items
+        Service->>Pricing: priceOf(ItemType)
+        Service->>Promo: strategiesFor(ItemType)
+        Promo-->>Service: List strategies
+        Service->>Service: apply strategies & aggregate discounts
+    end
+    Service-->>API: Receipt
+    API-->>Client: 200 OK (ReceiptResponse)
+```

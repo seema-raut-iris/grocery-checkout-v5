@@ -1,0 +1,22 @@
+
+spring:
+  application:
+    name: grocery-checkout-boot3
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,env,threaddump
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui/index.html
+    display-request-duration: true
+    doc-expansion: none
+  api-docs:
+    enabled: true
