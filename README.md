@@ -63,10 +63,8 @@ curl --location --request POST 'http://localhost:8080/api/v1/checkout' \
 - **ISP**: DTOs isolated from domain.
 - **DIP**: `CheckoutService` depends on `PriceProvider` & `StrategyRegistry`.
 
-## Resilience & Observability
-- **Resilience4j** protects the `RemotePricingClient` with CircuitBreaker+Retry and TimeLimiter.
+## Observability & Health
 - **Actuator** exposes health, info, metrics, and Prometheus endpoint.
-- **Micrometer** automatically publishes Resilience4j metrics when present.
 
 ## Error Handling
 - Global `@RestControllerAdvice` returns RFC-7807 `ProblemDetail` responses for validation and domain errors.
