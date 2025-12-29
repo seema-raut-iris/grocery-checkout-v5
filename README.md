@@ -8,6 +8,14 @@ Production-ready structure with **SOLID** design, **Actuator**, **Strategy patte
 mvn clean package
 mvn spring-boot:run
 ```
+
+### Architecture
+→ Controller
+→ Service
+→ Domain (Enum)
+Business logic is isolated from infrastructure.
+
+## Endpoints
 - Swagger UI: `http://localhost:8080/swagger-ui/index.html`
 - Actuator: `http://localhost:8080/actuator` (health, info, metrics, prometheus, etc.)
 - API: `GET /api/v1/items`, `POST /api/v1/checkout`
