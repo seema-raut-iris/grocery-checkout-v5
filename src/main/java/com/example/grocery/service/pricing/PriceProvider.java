@@ -1,5 +1,5 @@
 
-package com.example.grocery.pricing;
+package com.example.grocery.service.pricing;
 
 import com.example.grocery.domain.ItemType;
 

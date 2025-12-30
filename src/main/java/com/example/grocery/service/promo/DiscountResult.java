@@ -1,5 +1,5 @@
 
-package com.example.grocery.promo;
+package com.example.grocery.service.promo;
 
 import lombok.Value;
 

@@ -1,5 +1,5 @@
 
-package com.example.grocery.dto;
+package com.example.grocery.api.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

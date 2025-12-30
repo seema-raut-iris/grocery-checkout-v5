@@ -1,16 +1,14 @@
 
-package com.example.grocery.controller;
+package com.example.grocery.api.controller;
 
-import com.example.grocery.dto.BasketRequest;
-import com.example.grocery.dto.ItemPriceDto;
-import com.example.grocery.dto.ReceiptResponse;
+import com.example.grocery.api.dto.BasketRequest;
+import com.example.grocery.api.dto.ReceiptResponse;
 import com.example.grocery.domain.BasketItem;
 import com.example.grocery.domain.ItemType;
 import com.example.grocery.service.CheckoutService;
 import com.example.grocery.service.ItemCatalogService;
 import com.example.grocery.util.ItemResolver;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -31,23 +29,6 @@ public class CheckoutController {
     private CheckoutService checkoutService;
     @Autowired
     private ItemCatalogService itemCatalogService;
-
-
-    @Operation(summary = "GET item types with unit prices", description = "Returns all known ItemType values with their current unit prices.",
-            responses = { @ApiResponse(responseCode = "200",description = "Successful retrieval", content = @Content(
-            mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = ItemPriceDto.class)),examples = {@ExampleObject(name = "items-example", value = """
-            [{ "type": "BANANA", "unitPrice": 0.50 },{ "type": "ORANGE", "unitPrice": 0.30 },
-            { "type": "APPLE",  "unitPrice": 0.60 },{ "type": "LEMON",  "unitPrice": 0.25 },{ "type": "PEACH",  "unitPrice": 0.75 }]""")} ))
-            }
-    )
-    @GetMapping("/items")
-     public ResponseEntity<List<ItemPriceDto>> getItemsWithPrices() {
-        var map = itemCatalogService.getAllAsMap();
-        var payload = map.entrySet().stream()
-                .map(e -> new ItemPriceDto(e.getKey(), e.getValue()))
-                .toList();
-        return ResponseEntity.ok(payload);
-    }
 
     @Operation(
             summary = "Creates the item checkout receipt",

@@ -2,15 +2,13 @@
 package com.example.grocery.service;
 
 import com.example.grocery.domain.ItemType;
-import com.example.grocery.pricing.PriceProvider;
+import com.example.grocery.service.pricing.PriceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class ItemCatalogService {

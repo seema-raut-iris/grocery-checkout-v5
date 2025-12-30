@@ -1,5 +1,5 @@
 
-package com.example.grocery.dto;
+package com.example.grocery.api.dto;
 
 import com.example.grocery.domain.DiscountLine;
 import com.example.grocery.domain.ReceiptLine;
