@@ -11,9 +11,9 @@ mvn spring-boot:run
 ```
 
 ## Architecture
-Controller Layer
-Service Layer (Pricing, Discount, Receipt, Checkout)
-Domain (Enum)
+- Controller Layer
+- Service Layer (Pricing, Discount, Receipt, Checkout)
+- Domain (Enum)
 
 Business logic is isolated from infrastructure.
 
@@ -24,19 +24,19 @@ Business logic is isolated from infrastructure.
 
 ## Assumptions
 ### Core behavior
-Basket Input: The API accepts a list of items {name|type, quantity}. Quantity is a positive integer (>= 1). Non‑positive or non‑integer quantities are rejected with 400 Bad Request.
-Item Identity: Items are mapped via a canonical ItemType enum (e.g., BANANAS, ORANGES, APPLES, LEMONS, PEACHES). Any unknown item name/type returns 400 Bad Request, with an actionable message.
-Receipt Output: The system returns an itemized receipt:
-items[]: {itemName, quantity, amount} where amount is line total before discounts.
-discounts[]: {description, amount}, where amount is negative (display) to represent subtraction from the subtotal. If no discounts apply, we include a single line: "No discount applicable" with 0.00.
-subtotal (sum of items before discounts), totalDiscount (sum of discount amounts; negative for user readability), and total (subtotal + totalDiscount).
-Currency & Rounding: All amounts use GBP (£) and two‑decimal, HALF_UP rounding at presentation. Internally, monetary operations use BigDecimal with scale 2 unless explicitly noted.
-Idempotency: A given basket should yield the same receipt every time for the same active pricing version and promotion set. If an idempotency key is provided, duplicate requests within a window (e.g., 5 minutes) return the same receipt.
+- Basket Input: The API accepts a list of items {name|type, quantity}. Quantity is a positive integer (>= 1). Non‑positive or non‑integer quantities are rejected with 400 Bad Request.
+- Item Identity: Items are mapped via a canonical ItemType enum (e.g., BANANAS, ORANGES, APPLES, LEMONS, PEACHES). Any unknown item name/type returns 400 Bad Request, with an actionable message.
+- Receipt Output: The system returns an itemized receipt:
+- items[]: {itemName, quantity, amount} where amount is line total before discounts.
+- discounts[]: {description, amount}, where amount is negative (display) to represent subtraction from the subtotal. If no discounts apply, we include a single line: "No discount applicable" with 0.00.
+- subtotal (sum of items before discounts), totalDiscount (sum of discount amounts; negative for user readability), and total (subtotal + totalDiscount).
+  - Currency & Rounding: All amounts use GBP (£) and two‑decimal, HALF_UP rounding at presentation. Internally, monetary operations use BigDecimal with scale 2 unless explicitly noted.
+  - Idempotency: A given basket should yield the same receipt every time for the same active pricing version and promotion set. If an idempotency key is provided, duplicate requests within a window (e.g., 5 minutes) return the same receipt.
 
 ### Pricing Assumptions
 - Dynamic Pricing : Prices can be JSON‑backed for dev/test and DB‑backed for production. Only one active pricing version is used at checkout time (e.g., v1, v2).
 - Item Coverage: All supported ItemTypes must have a defined unit price in the active version; otherwise, the service falls back to the canonical enum default and logs a WARN (configurable).
--  Currency: GBP only in the initial release. Multi‑currency support is planned (see roadmap), which will introduce FX conversion rules and price book partitioning.
+- Currency: GBP only in the initial release. Multi‑currency support is planned (see roadmap), which will introduce FX conversion rules and price book partitioning.
 
 ### Discount Assumptions (Promotions)
 * Strategy model 
