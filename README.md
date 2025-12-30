@@ -33,11 +33,6 @@ Business logic is isolated from infrastructure.
   - Currency & Rounding: All amounts use GBP (£) and two‑decimal, HALF_UP rounding at presentation. Internally, monetary operations use BigDecimal with scale 2 unless explicitly noted.
   - Idempotency: A given basket should yield the same receipt every time for the same active pricing version and promotion set. If an idempotency key is provided, duplicate requests within a window (e.g., 5 minutes) return the same receipt.
 
-### Pricing Assumptions
-- Dynamic Pricing : Prices can be JSON‑backed for dev/test and DB‑backed for production. Only one active pricing version is used at checkout time (e.g., v1, v2).
-- Item Coverage: All supported ItemTypes must have a defined unit price in the active version; otherwise, the service falls back to the canonical enum default and logs a WARN (configurable).
-- Currency: GBP only in the initial release. Multi‑currency support is planned (see roadmap), which will introduce FX conversion rules and price book partitioning.
-
 ### Discount Assumptions (Promotions)
 * Strategy model 
 - Open/Closed Principle: Promotions are implemented via strategy classes. Adding a new promotion means adding a new strategy and registering it—no changes to core checkout logic.
