@@ -16,6 +16,7 @@ import static com.example.grocery.util.PriceMath.scale;
  *   perGroupDiscount = (unitPrice * K) - groupPrice
  *   totalDiscount    = perGroupDiscount * groups
  */
+@PromotionType("K_ITEM_FOR_FIXED_PRICE")
 public class KItemForFixedPriceStrategy implements DiscountStrategy {
 
     private final ItemType targetItem;
@@ -23,6 +24,7 @@ public class KItemForFixedPriceStrategy implements DiscountStrategy {
     private final BigDecimal groupPrice;
     private final String description;
 
+    @PromotionCtor(keys = { "k", "price" })
     public KItemForFixedPriceStrategy(ItemType targetItem, int k, BigDecimal groupPrice) {
         if (k <= 1) throw new IllegalArgumentException("k must be > 1");
         if (groupPrice == null || groupPrice.compareTo(BigDecimal.ZERO) <= 0)
@@ -64,7 +66,7 @@ public class KItemForFixedPriceStrategy implements DiscountStrategy {
 
     @Override
     public String name() {
-        return targetItem.name().toLowerCase() + "-" + k + "-for-" + groupPrice;
+        return "K_ITEM_FOR_FIXED_PRICE(" + targetItem + ":" + k + "@" + groupPrice   + ")";
     }
 
     ;

@@ -4,15 +4,14 @@ package com.example.grocery.service;
 import com.example.grocery.domain.BasketItem;
 import com.example.grocery.domain.ItemType;
 import com.example.grocery.domain.Receipt;
+import com.example.grocery.service.impl.CheckoutServiceImpl;
 import com.example.grocery.service.pricing.PriceProvider;
-import com.example.grocery.service.promo.BuyXGetYFreeStrategy;
-import com.example.grocery.service.promo.KItemForFixedPriceStrategy;
-import com.example.grocery.service.promo.MinQtyFixedUnitPriceStrategy;
-import com.example.grocery.service.promo.StrategyRegistry;
+import com.example.grocery.service.promo.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,7 +55,8 @@ class CheckoutServiceTest {
     void exampleBasket() {
         var priceProvider = new TestPriceProvider();
         var registry = buildStandardRegistry();
-        var checkoutService = new CheckoutService(priceProvider, registry);
+        List< BasketLevelStrategy > basketStrategiesList = new ArrayList<>();
+        var checkoutService = new CheckoutServiceImpl(priceProvider, registry, basketStrategiesList);
 
         Receipt receipt = checkoutService.checkout(List.of(
                 BasketItem.builder().type(ItemType.BANANAS).quantity(3).build(),
@@ -97,7 +97,8 @@ class CheckoutServiceTest {
         var priceProvider = new TestPriceProvider();
         // Registry with standard promotions (none for peaches)
         var registry = buildStandardRegistry();
-        var checkoutService = new CheckoutService(priceProvider, registry);
+        List< BasketLevelStrategy > basketStrategiesList = new ArrayList<>();
+        var checkoutService = new CheckoutServiceImpl(priceProvider, registry, basketStrategiesList);
 
         Receipt receipt = checkoutService.checkout(List.of(
                 BasketItem.builder().type(ItemType.PEACHES).quantity(2).build()
@@ -119,7 +120,8 @@ class CheckoutServiceTest {
     void applesMinQtyUnitPrice() {
         var priceProvider = new TestPriceProvider();
         var registry = buildStandardRegistry();
-        var checkoutService = new CheckoutService(priceProvider, registry);
+        List< BasketLevelStrategy > basketStrategiesList = new ArrayList<>();
+        var checkoutService = new CheckoutServiceImpl(priceProvider, registry,basketStrategiesList);
 
         Receipt receipt = checkoutService.checkout(List.of(
                 BasketItem.builder().type(ItemType.APPLES).quantity(4).build()

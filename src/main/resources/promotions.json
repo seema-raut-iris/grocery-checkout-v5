@@ -1,0 +1,37 @@
+
+{
+  "promotions": [
+    {
+      "ruleType": "BUY_X_GET_Y_FREE",
+      "itemType": "BANANAS",
+      "params": { "x": "2", "y": "1" }
+    },
+    {
+      "ruleType": "K_ITEM_FOR_FIXED_PRICE",
+      "itemType": "ORANGES",
+      "params": { "k": "3", "price": "0.75" }
+    },
+    {
+      "ruleType": "MIN_QTY_FIXED_UNIT_PRICE",
+      "itemType": "APPLES",
+      "params": { "minQty": "3", "unitPrice": "0.55" }
+    },
+    {
+      "ruleType": "ITEM_COMBO_FIXED_PRICE",
+      "params": {
+        "combo": "APPLES:1,BANANAS:2",
+        "price": "1.25",
+        "max": "3"
+      }
+    },
+    {
+      "ruleType": "MAX_SUBTOTAL_PERCENT_OFF",
+      "params": {
+        "threshold": "1000.00",
+        "percent": "10.0",
+        "cap": "200.00"
+      }
+    }
+
+  ]
+}

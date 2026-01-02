@@ -11,9 +11,9 @@ import static com.example.grocery.util.PriceMath.scale;
 /**
  * Generic "Buy X Get Y Free" promotion, applicable to ANY ItemType.
  * Example: (BANANAS, 2, 1) => "Buy 2 Get 1 Free (BANANAS)".
- *
  * For each full group of (x + y) items, Y units are free.
  */
+@PromotionType("BUY_X_GET_Y_FREE")
 public class BuyXGetYFreeStrategy implements DiscountStrategy {
 
     private final ItemType targetItem;
@@ -21,6 +21,7 @@ public class BuyXGetYFreeStrategy implements DiscountStrategy {
     private final int y;
     private final String description;
 
+    @PromotionCtor(keys = { "x", "y" })
     public BuyXGetYFreeStrategy(ItemType targetItem, int x, int y) {
         if (x <= 0 || y <= 0) throw new IllegalArgumentException("x,y must be > 0");
         this.targetItem = Objects.requireNonNull(targetItem);
@@ -45,5 +46,5 @@ public class BuyXGetYFreeStrategy implements DiscountStrategy {
         return new DiscountResult(description, discount);
     }
 
-    @Override public String name() { return targetItem.name().toLowerCase() + "-b" + x + "g" + y; }
+    @Override public String name() { return "BUY_X_GET_Y_FREE(" + targetItem + ":" + x + "," + y + ")";  }
 }
