@@ -27,9 +27,9 @@
     {
       "ruleType": "MAX_SUBTOTAL_PERCENT_OFF",
       "params": {
-        "threshold": "1000.00",
+        "threshold": "50.00",
         "percent": "10.0",
-        "cap": "200.00"
+        "cap": "20.00"
       }
     }
 
